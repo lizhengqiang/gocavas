@@ -18,5 +18,6 @@ g.DrawPicture(textimg,[2]int{0,0})
 ```
 g.SavePng("img/hh.png")
 ```
+
 ## 效果
 ![](img/hh.png)
