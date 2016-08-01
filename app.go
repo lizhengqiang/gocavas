@@ -9,6 +9,7 @@ import (
 
 	"image/color"
 	"fmt"
+	"io/ioutil"
 )
 
 func main() {
@@ -25,6 +26,7 @@ func main() {
 	g:=drawing.NewFromImage(scrimg)
 	g.DrawPicture(textimg,[2]int{0,0})
 	bw:=g.SaveJpg(100)
+	ioutil.WriteFile("img/result.jpg",bw,os.ModePerm)
 	fmt.Println(len(bw))
 
 }

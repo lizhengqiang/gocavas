@@ -77,9 +77,7 @@ func (this *Graphics)Drawbrokenline(pen Pen,points...([2]int)) *Graphics{
 	return this
 }
 func (this *Graphics)DrawPicture(img image.Image ,location ([2]int)) *Graphics{
-
 	w,h:=img.Bounds().Dx(),img.Bounds().Dy()
-
 	for y:=0;y<h;y++ {
 		for x:=0;x<w;x++{
 			colorr,colorg,colorb,colora:=img.At(x,y).RGBA()

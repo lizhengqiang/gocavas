@@ -16,7 +16,8 @@ g.DrawPicture(textimg,[2]int{0,0})
 ```
 + 保存
 ```
-g.SavePng("img/hh.png")
+bs:=g.SavePng()
+
 ```
 
 ## 效果
