@@ -24,7 +24,7 @@ func main() {
 	}
 	g:=drawing.NewFromImage(scrimg)
 	g.DrawPicture(textimg,[2]int{0,0})
-	bw:=g.SavePng()
+	bw:=g.SaveJpg(100)
 	fmt.Println(len(bw))
 
 }
