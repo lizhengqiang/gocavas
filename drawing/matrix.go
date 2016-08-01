@@ -3,6 +3,14 @@ package drawing
 import (
 	"image/color"
 	"image"
+	"golang.org/x/image/font"
+	"github.com/golang/freetype/truetype"
+
+	"golang.org/x/image/math/fixed"
+	"io/ioutil"
+
+	"image/png"
+	"os"
 )
 
 type Graphics struct  {
@@ -28,6 +36,16 @@ func (this *Graphics)ResizeGraphics(newrect [2]int) *Graphics{
 	}
 	return &Graphics{*rgbimg}
 }
+func (this *Graphics)SavePng(name string){
+	f,err:=os.Create(name)
+	if(err!=nil){
+		panic(err)
+	}
+	err=png.Encode(f,&this.RGBA)
+	if(err!=nil){
+		panic(err)
+	}
+}
 func (this *Graphics)Drawbrokenline(pen Pen,points...([2]int)) *Graphics{
 
 	return this
@@ -39,5 +57,29 @@ func (this *Graphics)DrawPicture(img image.Image ,location,rect ([2]int)) *Graph
 		panic("your draw location out of range")
 	}
 
+	return this
+}
+func (this *Graphics)DrawString(text string,FontName string,hinting font.Hinting,size float64,dpi float64,dot fixed.Point26_6)(*Graphics)  {
+	fontBytes, err := ioutil.ReadFile(FontName)
+	if err != nil {
+		panic(err)
+
+	}
+	fo, err := truetype.Parse(fontBytes)
+	if err != nil {
+		panic(err)
+
+	}
+	fg:=image.White
+	d := &font.Drawer{
+		Dst: &this.RGBA,
+		Src: fg,
+		Face: truetype.NewFace(fo, &truetype.Options{
+			Size:    size,
+			DPI:     dpi,
+			Hinting: hinting,
+		}),
+	}
+	d.DrawString(text)
 	return this
 }
