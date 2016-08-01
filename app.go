@@ -8,6 +8,7 @@ import (
 	"image/jpeg"
 
 	"image/color"
+	"fmt"
 )
 
 func main() {
@@ -23,6 +24,6 @@ func main() {
 	}
 	g:=drawing.NewFromImage(scrimg)
 	g.DrawPicture(textimg,[2]int{0,0})
-	g.SavePng("img/hh.png")
+	fmt.Print(g.SavePng())
 }
 

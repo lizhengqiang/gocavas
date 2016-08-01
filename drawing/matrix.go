@@ -7,10 +7,11 @@ import (
 	"github.com/golang/freetype/truetype"
 	"golang.org/x/image/math/fixed"
 	"io/ioutil"
-	"os"
+
 	"image/png"
 	"image/draw"
 
+	"bufio"
 )
 
 type Graphics struct  {
@@ -50,15 +51,13 @@ func (this *Graphics)ResizeNewGraphics(w,h int) *Graphics{
 	}
 	return &Graphics{*rgbimg}
 }
-func (this *Graphics)SavePng(name string){
-	f,err:=os.Create(name)
+func (this *Graphics)SavePng()(result bufio.Writer){
+	w:=bufio.Writer{}
+	err:=png.Encode(&w,&this.RGBA)
 	if(err!=nil){
 		panic(err)
 	}
-	err=png.Encode(f,&this.RGBA)
-	if(err!=nil){
-		panic(err)
-	}
+	return w
 }
 func (this *Graphics)Drawbrokenline(pen Pen,points...([2]int)) *Graphics{
 
