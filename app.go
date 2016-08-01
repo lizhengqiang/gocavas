@@ -1,23 +1,28 @@
 package main
 
 import (
-	"os"
-	"image/jpeg"
 	"code.aliyun.com/timeloveboy/gocavas/drawing"
 	"golang.org/x/image/font"
-	"golang.org/x/image/math/fixed"
+
+	"os"
+	"image/jpeg"
+	"image/png"
 )
 
 func main() {
-	file,err:=os.Open("img/hh.jpeg")
+
+	textimg:=drawing.DrawString(300,200,"李鹏","static/张海山锐线体简1.0.ttf",font.HintingNone,100,100,0,0)
+
+	f,err:=os.Open("img/hh.jpeg")
+	scrimg,err:=jpeg.Decode(f)
+
+	f2,err:=os.Create("img/h.png")
+	png.Encode(f2,textimg)
 	if(err!=nil){
 		panic(err)
 	}
-	img,err:=jpeg.Decode(file)
-	if(err!=nil){
-		panic(err)
-	}
-	g:=&drawing.Graphics{img}
-	g.DrawString("李鹏","static/张海山锐线体简1.0.ttf",font.HintingFull,12,128,fixed.Point26_6{10,10})
-	g.SavePng("img/hh.png")
+	g:=drawing.NewFromImage(scrimg)
+	g2:=g.DrawPicture(textimg,[2]int{0,0})
+	g2.SavePng("img/hh.png")
 }
+
