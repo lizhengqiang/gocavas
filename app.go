@@ -22,7 +22,7 @@ func main() {
 		panic(err)
 	}
 	g:=drawing.NewFromImage(scrimg)
-	g2:=g.DrawPicture(textimg,[2]int{0,0})
-	g2.SavePng("img/hh.png")
+	g.DrawPicture(textimg,[2]int{0,0})
+	g.SavePng("img/hh.png")
 }
 
