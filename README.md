@@ -17,7 +17,7 @@ g.DrawPicture(textimg,[2]int{0,0})
 + 保存
 ```
 bs:=g.SavePng()
-
+ioutil.WriteFile("img/result.jpg",bw,os.ModePerm)
 ```
 
 ## 效果
