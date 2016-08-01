@@ -72,7 +72,7 @@ func (this *Graphics)DrawPicture(img image.Image ,location ([2]int)) *Graphics{
 		for x:=0;x<w;x++{
 			colorr,colorg,colorb,colora:=img.At(x,y).RGBA()
 			b:=color.RGBA{uint8(colorr),uint8(colorg),uint8(colorb),uint8(colora)}
-			if(b.A==0){
+			if(b.A<128){
 				continue
 			}else {
 				this.Set(x+location[0],y+location[1],img.At(x,y))
