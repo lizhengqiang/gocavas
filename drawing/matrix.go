@@ -12,6 +12,8 @@ import (
 	"image/draw"
 
 	"bufio"
+	"bytes"
+
 )
 
 type Graphics struct  {
@@ -51,13 +53,17 @@ func (this *Graphics)ResizeNewGraphics(w,h int) *Graphics{
 	}
 	return &Graphics{*rgbimg}
 }
-func (this *Graphics)SavePng()(result bufio.Writer){
-	w:=bufio.Writer{}
-	err:=png.Encode(&w,&this.RGBA)
+func (this *Graphics)SavePng()(bs []byte){
+	b:=bytes.NewBuffer(make([]byte,0))
+	w:=bufio.NewWriterSize(b,this.Stride)
+
+	err:=png.Encode(w,&this.RGBA)
+
 	if(err!=nil){
 		panic(err)
 	}
-	return w
+
+	return b.Bytes()
 }
 func (this *Graphics)Drawbrokenline(pen Pen,points...([2]int)) *Graphics{
 
