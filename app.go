@@ -7,11 +7,12 @@ import (
 	"os"
 	"image/jpeg"
 	"image/png"
+	"image/color"
 )
 
 func main() {
 
-	textimg:=drawing.DrawString(300,200,"李鹏","static/张海山锐线体简1.0.ttf",font.HintingNone,100,100,0,0)
+	textimg:=drawing.DrawString(300,200,"李鹏","static/张海山锐线体简1.0.ttf",font.HintingNone,100,color.RGBA{0,255,255,255},100,0,0)
 
 	f,err:=os.Open("img/hh.jpeg")
 	scrimg,err:=jpeg.Decode(f)
