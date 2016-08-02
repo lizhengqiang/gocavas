@@ -18,10 +18,10 @@ func main() {
 	img_line2:=drawing.DrawString(300,200,"我是韩寒","static/张海山锐线体简1.0.ttf",font.HintingNone,25,color.RGBA{0,255,0,255},100,0,0)
 
 	f,err:=os.Open("img/hh.jpeg")
-	defer f.Close()
 
-	bs:=make([]byte,0)
-	_,err=f.Read(bs)
+	defer f.Close()
+	bs,err:=ioutil.ReadAll(f)
+
 	if(err!=nil){
 		panic(err)
 	}
