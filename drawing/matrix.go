@@ -15,6 +15,7 @@ import (
 	"bytes"
 
 	"image/jpeg"
+	"image/gif"
 )
 
 type Graphics struct  {
@@ -23,6 +24,28 @@ type Graphics struct  {
 type Pen  struct{
 	color	color.Color
 	width int
+}
+
+func NewImageFromBytes(bs []byte)(image.Image){
+	r:=bytes.NewReader(bs)
+
+	img,err:=jpeg.Decode(r)
+	if(err==nil){
+		return img
+	}
+
+	r=bytes.NewReader(bs)
+	img,err=png.Decode(r)
+	if(err==nil){
+		return img
+	}
+
+	r=bytes.NewReader(bs)
+	img,err=gif.Decode(r)
+	if(err==nil){
+		return img
+	}
+	return nil
 }
 
 func NewFromImage(img image.Image)*Graphics{
